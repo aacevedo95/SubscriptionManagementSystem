@@ -10,7 +10,6 @@ public class WindowCredits extends Window{
 	
 	public WindowCredits(){
 		super();
-		logger.logInfo("Creating new Credits window");
 		frame.setTitle("Credits");
 		JPanel info = new JPanel();
 		JPanel header = new JPanel();

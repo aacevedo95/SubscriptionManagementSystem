@@ -164,7 +164,7 @@ public class WindowRegisterUser extends Window{
 		//frame.pack();
 		frame.setSize(400,300);
 		frame.setTitle("Register new user");
-		center();
+		finalize();
 	}
 	
 	private int generateId(){

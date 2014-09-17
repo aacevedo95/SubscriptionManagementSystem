@@ -19,7 +19,8 @@ public class ClientList extends BaseUtility implements Serializable{
 	
 	private void verifyList(){
 		logger.logInfo("Verifying clientlist size");
-		if(clients == list.length+1){
+		if(clients == list.length){
+			sizeModifier++;
 			int newSize = BASE_SIZE*(int)(Math.pow(2, sizeModifier));
 			logger.logInfo("Client list is full, rescaling to " + newSize + " slots");
 			Client[] temp = new Client[newSize];
@@ -33,14 +34,17 @@ public class ClientList extends BaseUtility implements Serializable{
 	public void addClient(Client c){
 		verifyList();
 		logger.logInfo("Adding user " + c.getUserId() + " to ClientList");
+		boolean found = false;
 		for(int x = 0; x < list.length; x++){
 			if(list[x] == null){
 				list[x] = c;
 				clients++;
 				logger.logInfo("Added user " + c.getUserId() + " at position " + x);
+				found = true;
 				break;
 			}
 		}
+		if(!found)logger.logSevere("The list has no space, could not add user " + c.getUserId());
 	}
 
 	public Client getClient(int x){

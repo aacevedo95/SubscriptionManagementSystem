@@ -23,7 +23,6 @@ public class WindowClientList extends Window{
 
 	public WindowClientList(){
 		super();
-		logger.logInfo("Creating new ClientList window");
 		frame.setTitle("Client list");
 		table = new JTable(getData(clientList.getCompressedList()), columns);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -63,6 +62,7 @@ public class WindowClientList extends Window{
 					clientList.deleteClientById(id);
 					refresh();
 				}
+				setSelectedRow(row);
 			}
 		});
 		buttonPanel.add(removeButton, gbc);
@@ -92,6 +92,19 @@ public class WindowClientList extends Window{
 				new WindowSettings();
 			}
 		});
+		
+		/*
+		 * DEBUG - REMOVE ON FINAL COMPILE
+		 */
+		JButton debug = new JButton("DEBUG");
+		buttonPanel.add(debug, gbc);
+		debug.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new WindowDebug();
+			}
+		});
+		
 		buttonPanel.add(creditsButton, gbc);
 		gbc.gridy++;
 		exitButton.addActionListener(new ActionListener(){
@@ -112,8 +125,7 @@ public class WindowClientList extends Window{
 		});
 		frame.add(buttonPanel);
 		frame.pack();
-		frame.setVisible(true);
-		center();
+		finalize();
 	}
 
 	public void refresh(){
@@ -135,5 +147,9 @@ public class WindowClientList extends Window{
 			return temp;
 		}
 		return null;
+	}
+	
+	private void setSelectedRow(int row){
+		table.setRowSelectionInterval(row, row);
 	}
 }

@@ -1,13 +1,13 @@
 package com.fourbit.subscriptionmanagement;
 
 import java.util.Random;
-
 import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
 import com.fourbit.subscriptionmanagement.baseutils.Client;
 
 public class ClientGenerator extends BaseUtility{
 	
-	private final String[] letter = new String().split("abcdefghijklmnopqrstuvwxyz");
+	public ClientGenerator(){
+	}
 	
 	public Client[] generateClientList(int size){
 		logger.logInfo("Generating list with size " + size);
@@ -38,6 +38,7 @@ public class ClientGenerator extends BaseUtility{
 	}
 	
 	private String generateString(){
+		char[] letter = new String("abcdefghijklmnopqrstuvwxyz").toCharArray();
 		Random g = new Random();
 		String str = "";
 		int length = g.nextInt(8)+4;

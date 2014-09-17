@@ -11,6 +11,7 @@ public class Window extends BaseUtility{
 	public Window(){
 		frame = new JFrame();
 		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
 	}
 
 	public JFrame getFrame(){

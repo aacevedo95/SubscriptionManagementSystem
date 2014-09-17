@@ -104,7 +104,8 @@ public class WindowViewEdit extends Window{
 		frame.add(buttonPanel);
 		buttonPanel.setLayout(new FlowLayout());
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.pack();
+		frame.setSize(400,300);
+		//frame.pack();
 		frame.setVisible(true);
 	}
 }

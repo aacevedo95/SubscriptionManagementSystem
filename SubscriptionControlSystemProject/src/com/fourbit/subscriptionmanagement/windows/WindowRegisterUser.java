@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import com.fourbit.subscriptionmanagement.baseutils.Client;
 
 public class WindowRegisterUser extends Window{
@@ -70,7 +69,6 @@ public class WindowRegisterUser extends Window{
 		    public void windowClosing(WindowEvent e)
 		    {
 		    	frame.dispose();
-		    	new WindowClientList();
 		    }
 		});
 		JPanel panel1 = new JPanel();
@@ -164,9 +162,9 @@ public class WindowRegisterUser extends Window{
 			}
 		});
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.pack();
+		//frame.pack();
+		frame.setSize(400,300);
 		frame.setTitle("Register new user");
-		frame.setResizable(false);
 		frame.setVisible(true);
 	}
 	

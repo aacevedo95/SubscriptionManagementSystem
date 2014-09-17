@@ -1,5 +1,6 @@
 package com.fourbit.subscriptionmanagement.windows;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,6 +27,7 @@ public class WindowClientList extends Window{
 		frame.setTitle("Client list");
 		table = new JTable(getData(clientList.getCompressedList()), columns);
 		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setPreferredSize(new Dimension(1280, 720));
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		frame.setLayout(new FlowLayout());
 		frame.add(scrollPane);

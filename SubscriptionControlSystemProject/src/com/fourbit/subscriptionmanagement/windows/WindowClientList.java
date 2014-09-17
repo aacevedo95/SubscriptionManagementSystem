@@ -113,6 +113,7 @@ public class WindowClientList extends Window{
 		frame.add(buttonPanel);
 		frame.pack();
 		frame.setVisible(true);
+		center();
 	}
 
 	public void refresh(){

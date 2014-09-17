@@ -1,11 +1,11 @@
 package com.fourbit.subscriptionmanagement;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
 
 public class Logger extends BaseUtility{

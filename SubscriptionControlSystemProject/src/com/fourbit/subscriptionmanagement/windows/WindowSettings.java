@@ -44,6 +44,6 @@ public class WindowSettings extends Window{
 		});
 		frame.pack();
 		//frame.setSize(300,200);
-		frame.setVisible(true);
+		finalize();
 	}
 }

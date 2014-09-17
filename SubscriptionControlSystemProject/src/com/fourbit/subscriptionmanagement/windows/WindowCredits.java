@@ -49,7 +49,6 @@ public class WindowCredits extends Window{
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		//frame.pack();
 		frame.setSize(300,200);
-		frame.setResizable(false);
-		frame.setVisible(true);
+		finalize();
 	}
 }

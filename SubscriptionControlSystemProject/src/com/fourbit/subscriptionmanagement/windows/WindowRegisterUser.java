@@ -38,7 +38,6 @@ public class WindowRegisterUser extends Window{
 
 	public WindowRegisterUser(){
 		super();
-		logger.logInfo("Creating new RegisterUser window");
 		addUser = new JButton("Register");
 		resetFields = new JButton("Reset");
 		generateId = new JButton("Generate ID");
@@ -165,7 +164,7 @@ public class WindowRegisterUser extends Window{
 		//frame.pack();
 		frame.setSize(400,300);
 		frame.setTitle("Register new user");
-		frame.setVisible(true);
+		center();
 	}
 	
 	private int generateId(){

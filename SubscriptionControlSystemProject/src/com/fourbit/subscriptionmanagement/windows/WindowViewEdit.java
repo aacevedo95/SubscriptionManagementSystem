@@ -107,5 +107,6 @@ public class WindowViewEdit extends Window{
 		frame.setSize(400,300);
 		//frame.pack();
 		frame.setVisible(true);
+		center();
 	}
 }

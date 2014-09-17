@@ -82,7 +82,7 @@ public class ClientList extends BaseUtility implements Serializable{
 	public int searchForClientIndex(int id){
 		logger.logInfo("Searching for user " + id);
 		for(int x = 0; x < list.length; x++){
-			if(list[x].getUserId() == id){
+			if(list[x].getUserId().equals(id)){
 				logger.logInfo("Found user " + id + " with name " + list[x].getFirstName() + " " + list[x].getMiddleName() + " " + list[x].getLastName());
 				return x;
 			}

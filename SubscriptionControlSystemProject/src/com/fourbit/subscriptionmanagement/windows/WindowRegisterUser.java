@@ -108,8 +108,8 @@ public class WindowRegisterUser extends Window{
 		addUser.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				int id;
-				if(userIdField.getText().matches("[0-9]+"))id = Integer.parseInt(userIdField.getText());
+				String id;
+				if(userIdField.getText().matches("[0-9]+"))id = userIdField.getText();
 				else id = generateId();
 				String firstName = userFirstNameField.getText();
 				String middleName = userMiddleNameField.getText();
@@ -157,7 +157,7 @@ public class WindowRegisterUser extends Window{
 		generateId.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userIdField.setText(Integer.toString(generateId()));
+				userIdField.setText(generateId());
 			}
 		});
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -167,8 +167,13 @@ public class WindowRegisterUser extends Window{
 		finalize();
 	}
 	
-	private int generateId(){
+	public static String generateId(){
 		Random g = new Random();
-		return g.nextInt(8999) + 1000;
+		String id = "";
+		for(int i = 0; i < 9; i++){
+			id += g.nextInt(9);
+		}
+		return id;
+		//return g.nextInt(8999) + 1000;
 	}
 }

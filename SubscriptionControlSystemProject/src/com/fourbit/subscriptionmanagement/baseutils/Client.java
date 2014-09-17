@@ -9,7 +9,7 @@ public class Client implements Serializable{
 
 	private final double PRICE_PER_MONTH = 15.0;
 
-	private int userId; //5 digit number
+	private String userId; //5 digit number
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -28,11 +28,11 @@ public class Client implements Serializable{
 		totalDue = PRICE_PER_MONTH;
 	}
 
-	public int getUserId(){
+	public String getUserId(){
 		return userId;
 	}
 
-	public void setUserId(int id){
+	public void setUserId(String id){
 		userId = id;
 	}
 

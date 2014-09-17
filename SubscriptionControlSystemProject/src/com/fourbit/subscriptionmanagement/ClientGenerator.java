@@ -1,8 +1,10 @@
 package com.fourbit.subscriptionmanagement;
 
 import java.util.Random;
+
 import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
 import com.fourbit.subscriptionmanagement.baseutils.Client;
+import com.fourbit.subscriptionmanagement.windows.WindowRegisterUser;
 
 public class ClientGenerator extends BaseUtility{
 	
@@ -19,8 +21,7 @@ public class ClientGenerator extends BaseUtility{
 	}
 	
 	public Client generateClient(){
-		Random g = new Random();
-		int id = g.nextInt(8999)+1000;
+		String id = WindowRegisterUser.generateId();
 		logger.logInfo("Generating data for new user " + id);
 		Client c = new Client();
 		c.setUserId(id);

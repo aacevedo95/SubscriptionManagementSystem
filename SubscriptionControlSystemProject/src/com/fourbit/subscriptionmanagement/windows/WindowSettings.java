@@ -3,11 +3,9 @@ package com.fourbit.subscriptionmanagement.windows;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class WindowSettings extends Window{
@@ -17,19 +15,11 @@ public class WindowSettings extends Window{
 	public WindowSettings(){
 		super();
 		frame.setTitle("Settings");
-		JPanel labelPanel = new JPanel();
-		JLabel consoleLabel = new JLabel("Show console");
-		labelPanel.add(consoleLabel);
-		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
-		JPanel settingPanel = new JPanel();
-		checkboxConsole = new JCheckBox("test");
-		settingPanel.add(checkboxConsole);
-		settingPanel.setLayout(new BoxLayout(settingPanel, BoxLayout.Y_AXIS));
-		JPanel overallSettings = new JPanel();
-		overallSettings.add(labelPanel);
-		overallSettings.add(settingPanel);
-		overallSettings.setLayout(new FlowLayout());
-		frame.add(overallSettings);
+		JPanel settingsPanel = new JPanel();
+		checkboxConsole = new JCheckBox("Show console");
+		settingsPanel.add(checkboxConsole);
+		settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
+		frame.add(settingsPanel);
 		JPanel buttonPanel = new JPanel();
 		JButton reset = new JButton("Reset");
 		JButton done = new JButton("Done");

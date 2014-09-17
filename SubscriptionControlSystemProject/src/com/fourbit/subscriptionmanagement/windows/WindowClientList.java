@@ -1,84 +1,99 @@
 package com.fourbit.subscriptionmanagement.windows;
+
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import com.fourbit.subscriptionmanagement.baseutils.Client;
 
 public class WindowClientList extends Window{
 
 	private JTable table;
+	private final String[] columns = new String("ID,First name,Middle name,Last name, Phone, Email").split(",");
 
-	public WindowClientList(Client[] list){
+	public WindowClientList(){
 		super();
 		logger.logInfo("Creating new ClientList window");
 		frame.setTitle("Client list");
-		table = new JTable(getData(list), new String("ID,First name,Middle name,Last name, Phone, Email").split(","));
+		table = new JTable(getData(clientList.getCompressedList()), columns);
 		JScrollPane scrollPane = new JScrollPane(table);
-	    table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		frame.setLayout(new FlowLayout());
 		frame.add(scrollPane);
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+		buttonPanel.setLayout(new GridBagLayout());
 		JButton addButton = new JButton("Add");
-		JButton removeButton = new JButton("Remove");
-		JButton viewButton = new JButton("View");
+		JButton removeButton = new JButton("Delete");
+		JButton viewButton = new JButton("View/Edit");
 		JButton settingsButton = new JButton("Settings");
 		JButton creditsButton = new JButton("Credits");
 		JButton exitButton = new JButton("Exit");
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx = 10;
+        gbc.ipady = 10;
 		addButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
 				new WindowRegisterUser();
 			}
 		});
-		buttonPanel.add(addButton);
+		buttonPanel.add(addButton, gbc);
+		gbc.gridy++;
 		removeButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
 				int id = (int)table.getModel().getValueAt(row, 0);
-				clientList.deleteClientById(id);
-				frame.dispose();
-				new WindowClientList(clientList.getCompressedList());
+				Client temp = clientList.searchForClient(id);
+				if(showConfirmDialog("Are you sure you would like to unregister and delete all data related to user " + id + ", also known as " + temp.getFirstName() + " " + temp.getLastName())){
+					clientList.deleteClientById(id);
+					refresh();
+				}
 			}
 		});
-		buttonPanel.add(removeButton);
+		buttonPanel.add(removeButton, gbc);
+		gbc.gridy++;
 		viewButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
 				int id = (int)table.getModel().getValueAt(row, 0);
 				Client temp = clientList.searchForClient(id);
-				JOptionPane.showMessageDialog(null, "Name: " + temp.getFirstName() + " " + temp.getMiddleName() + " " + temp.getLastName() +
-						"\nPhone number: " + temp.getPhone() +
-						"\nEmail address: " + temp.getEmail()
-						);
+				new WindowViewEdit(temp);
 			}
 		});
-		buttonPanel.add(viewButton);
+		buttonPanel.add(viewButton, gbc);
+		gbc.gridy++;
 		creditsButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new WindowCredits();
 			}
 		});
-		buttonPanel.add(settingsButton);
+		buttonPanel.add(settingsButton, gbc);
+		gbc.gridy++;
 		settingsButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new WindowSettings();
 			}
 		});
-		buttonPanel.add(creditsButton);
+		buttonPanel.add(creditsButton, gbc);
+		gbc.gridy++;
 		exitButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -86,17 +101,23 @@ public class WindowClientList extends Window{
 				System.exit(0);
 			}
 		});
-		buttonPanel.add(exitButton);
+		buttonPanel.add(exitButton, gbc);
+		gbc.gridy++;
 		frame.addWindowListener(new WindowAdapter()
 		{
-		    public void windowClosing(WindowEvent e)
-		    {
-		    	close();
-		    }
+			public void windowClosing(WindowEvent e)
+			{
+				close();
+			}
 		});
 		frame.add(buttonPanel);
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	public void refresh(){
+		logger.logInfo("Refreshing table model");
+		table.setModel(new DefaultTableModel(getData(clientList.getCompressedList()), columns));
 	}
 
 	private Object[][] getData(Client[] ls){

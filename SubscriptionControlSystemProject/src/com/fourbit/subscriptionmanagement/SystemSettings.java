@@ -2,10 +2,9 @@ package com.fourbit.subscriptionmanagement;
 
 import java.io.Serializable;
 
-import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
 
 @SuppressWarnings("serial")
-public class SystemSettings extends BaseUtility implements Serializable{
+public class SystemSettings implements Serializable{
 	
 	private boolean showConsole;
 	

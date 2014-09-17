@@ -1,4 +1,5 @@
 package com.fourbit.subscriptionmanagement.windows;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Random;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -36,7 +36,6 @@ public class WindowRegisterUser extends Window{
 	private JLabel emailLabel;
 	private JTextField userEmailField;
 
-	private final int TEXT_FIELD_LENGTH = 20;
 
 	public WindowRegisterUser(){
 		super();
@@ -50,7 +49,7 @@ public class WindowRegisterUser extends Window{
 		userFirstNameField = new JTextField(TEXT_FIELD_LENGTH);
 		firstNameLabel = new JLabel("First name*:");
 		userMiddleNameField = new JTextField(TEXT_FIELD_LENGTH);
-		middleNameLabel = new JLabel("Middle name*:");
+		middleNameLabel = new JLabel("Middle name:");
 		userLastNameField = new JTextField(TEXT_FIELD_LENGTH);
 		lastNameLabel = new JLabel("Last name*:");
 		userPhoneField = new JTextField(TEXT_FIELD_LENGTH);
@@ -70,7 +69,8 @@ public class WindowRegisterUser extends Window{
 		{
 		    public void windowClosing(WindowEvent e)
 		    {
-		    	close();
+		    	frame.dispose();
+		    	new WindowClientList();
 		    }
 		});
 		JPanel panel1 = new JPanel();
@@ -110,8 +110,7 @@ public class WindowRegisterUser extends Window{
 		frame.add(buttons);
 		addUser.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				int option = 0;
+			public void actionPerformed(ActionEvent e){
 				int id;
 				if(userIdField.getText().matches("[0-9]+"))id = Integer.parseInt(userIdField.getText());
 				else id = generateId();
@@ -120,27 +119,26 @@ public class WindowRegisterUser extends Window{
 				String lastName = userLastNameField.getText();
 				String phone = userPhoneField.getText();
 				String email = userEmailField.getText();
-				if(!firstName.equals("") && !middleName.equals("") && !lastName.equals("") && phone.length() >= 10){
-					option = JOptionPane.showConfirmDialog(null, "Are you sure this information is correct:\n" + 
+				if(!firstName.equals("") && !lastName.equals("") && phone.length() >= 10){
+					if(showConfirmDialog("Are you sure this information is correct:\n" + 
 							"\nID: " + id +
 							"\nFirst name: " + firstName + 
 							"\nMiddle name: " + middleName +
 							"\nLast name: " + lastName +
 							"\nPhone: " + phone + 
-							"\nEmail: " + email
-							, "Confirmation", option);
-					if(option == JOptionPane.YES_OPTION){
+							"\nEmail: " + email)){
 						Client temp = new Client();
 						temp.setUserId(id);
 						temp.setFirstName(firstName);
-						temp.setMiddleName(middleName);
+						if(middleName.equals(""))temp.setMiddleName("N/A");
+						else temp.setMiddleName(middleName);
 						temp.setLastName(lastName);
 						temp.setPhone(phone);
 						temp.setEmail(email);
 						clientList.addClient(temp);
 						statTracker.modTotalPeopleRegistered();
 						frame.dispose();
-						new WindowClientList(clientList.getCompressedList());
+						windowClientList.refresh();
 					}
 				}else if(phone.length() < 10){
 					JOptionPane.showMessageDialog(null, "Phone number must be minimum 10 digits long");

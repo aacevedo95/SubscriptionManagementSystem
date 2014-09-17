@@ -19,6 +19,7 @@ public class BaseUtility {
 	static protected ClientList clientList;
 	static protected SystemSettings settings;
 	static protected StatisticsTracker statTracker;
+	static protected WindowClientList windowClientList;
 	
 	static boolean confirmDialog(String msg){
 		int opt = 0;
@@ -28,7 +29,6 @@ public class BaseUtility {
 	}
 
 	private final String EXTENSION = ".cdp";
-	protected final String VERSION = "0.2.017";
 
 	private String fileName;
 
@@ -42,7 +42,7 @@ public class BaseUtility {
 		loadData();
 		statTracker.modTotalRuns();
 		logger.logInfo("Done setting up BaseUtil, starting program");
-		new WindowClientList(clientList.getCompressedList());
+		windowClientList = 	new WindowClientList();
 	}
 
 	public void loadData(){
@@ -65,9 +65,9 @@ public class BaseUtility {
 
 	public void close(){
 		logger.logInfo("Starting to close program");
-		statTracker.save();
-		clientList.save();
-		settings.save();
+		save(statTracker, "statistics");
+		save(clientList, "clientlist");
+		save(settings, "settings");
 		logger.logInfo("Finished saving data");
 		logger.close();
 		System.exit(0);
@@ -86,15 +86,15 @@ public class BaseUtility {
 		}
 	}
 	
-	public void save(){
-		File dataFile = new File(getFileName() + EXTENSION);
-		String fileName = dataFile.getName();
+	public void save(Object obj, String fileName){
+		fileName+=EXTENSION;
+		File dataFile = new File(fileName);
 		logger.logInfo("Starting to save " + fileName);
 		try {
-			ObjectOutputStream OOS = new ObjectOutputStream(new FileOutputStream(fileName));
-			OOS.writeObject(this);
+			ObjectOutputStream OOS = new ObjectOutputStream(new FileOutputStream(dataFile));
+			OOS.writeObject(obj);
 			OOS.close();
-			logger.logInfo("Done saving to " + getFileName() + EXTENSION);
+			logger.logInfo("Done saving to " + fileName);
 		} catch (FileNotFoundException e) {
 			logger.logError("Could not find file " + fileName);
 		} catch (IOException e) {
@@ -127,5 +127,11 @@ public class BaseUtility {
 
 	public void setFileName(String name){
 		fileName = name;
+	}
+	
+	public boolean showConfirmDialog(String msg){
+		int opt = JOptionPane.showConfirmDialog(null, msg);
+		if(opt == JOptionPane.YES_OPTION)return true;
+		return false;
 	}
 }

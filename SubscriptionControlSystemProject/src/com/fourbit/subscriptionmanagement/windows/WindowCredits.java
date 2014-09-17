@@ -46,10 +46,6 @@ public class WindowCredits extends Window{
 		names.setLayout(new BoxLayout(names, BoxLayout.Y_AXIS));
 		info.add(names);
 		frame.add(info);
-		frame.add(Box.createVerticalStrut(20));
-		JPanel version = new JPanel();
-		version.add(new JLabel("Version - " + VERSION));
-		frame.add(version);
 		frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.pack();
 		frame.setResizable(false);

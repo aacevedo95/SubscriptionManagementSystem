@@ -6,25 +6,44 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
-import com.fourbit.subscriptionmanagement.baseutils.Client;
+import com.fourbit.subscriptionmanagement.baseutils.clientmanagement.Client;
 
 public class WindowClientList extends Window{
 
 	private JTable table;
 	private final String[] columns = new String("ID,First name,Middle name,Last name, Phone, Email").split(",");
 
+	@SuppressWarnings("serial")
 	public WindowClientList(){
 		super();
 		frame.setTitle("Client list");
-		table = new JTable(getData(clientList.getCompressedList()), columns);
+		table = new JTable(getData(clientList.getCompressedList()), columns){
+			@Override
+			public boolean isCellEditable(int row, int col) {
+				if(col == 0)return false;
+				return true;
+			};
+		};
+		table.getTableHeader().addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JTableHeader header = table.getTableHeader();
+				int selectedColumn = header.columnAtPoint(e.getPoint());
+				sort(selectedColumn);
+			}
+		});
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(1280, 720));
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -38,12 +57,12 @@ public class WindowClientList extends Window{
 		JButton settingsButton = new JButton("Settings");
 		JButton creditsButton = new JButton("Credits");
 		JButton exitButton = new JButton("Exit");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipadx = 10;
-        gbc.ipady = 10;
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.ipadx = 10;
+		gbc.ipady = 10;
 		addButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -56,8 +75,8 @@ public class WindowClientList extends Window{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
-				int id = (int)table.getModel().getValueAt(row, 0);
-				Client temp = clientList.searchForClient(id);
+				String id = (String)table.getModel().getValueAt(row, 0);
+				Client temp = clientList.searchForClientById(id);
 				if(showConfirmDialog("Are you sure you would like to unregister and delete all data related to user " + id + ", also known as " + temp.getFirstName() + " " + temp.getLastName())){
 					clientList.deleteClientById(id);
 					refresh();
@@ -71,8 +90,8 @@ public class WindowClientList extends Window{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
-				int id = (int)table.getModel().getValueAt(row, 0);
-				Client temp = clientList.searchForClient(id);
+				String id = (String)table.getModel().getValueAt(row, 0);
+				Client temp = clientList.searchForClientById(id);
 				new WindowViewEdit(temp);
 			}
 		});
@@ -92,7 +111,7 @@ public class WindowClientList extends Window{
 				new WindowSettings();
 			}
 		});
-		
+
 		/*
 		 * DEBUG - REMOVE ON FINAL COMPILE
 		 */
@@ -104,7 +123,7 @@ public class WindowClientList extends Window{
 				new WindowDebug();
 			}
 		});
-		
+
 		buttonPanel.add(creditsButton, gbc);
 		gbc.gridy++;
 		exitButton.addActionListener(new ActionListener(){
@@ -134,7 +153,7 @@ public class WindowClientList extends Window{
 	}
 
 	private Object[][] getData(Client[] ls){
-		if(ls != null){
+		if(ls != null && ls.length != 0){
 			Object[][] temp = new Object [ls.length][6];
 			for(int x = 0; x < ls.length; x++){
 				temp[x][0] = ls[x].getUserId();
@@ -148,8 +167,28 @@ public class WindowClientList extends Window{
 		}
 		return null;
 	}
-	
+
 	private void setSelectedRow(int row){
 		table.setRowSelectionInterval(row, row);
+	}
+	
+	public void sort(int col){
+		/*logger.logInfo("Starting to sort raw data via column " + table.getColumnName(col));
+		Object[][] data = getData(clientList.getCompressedList());
+		if(data != null && data.length != 0){
+			for(int x = 0; x < data[0].length; x++){
+				for(int y = x; y < data[0].length; y++){
+					String cur = (String)data[x][col];
+					String tgt = (String)data[y][col];
+					if(cur.compareTo(tgt) == 1){
+						Object temp = data[x][col];
+						data[x][col] = data[y][col];
+						data[y][col] = temp;
+					}
+				}
+			}
+			table.setModel(new DefaultTableModel(data, columns));
+		}*/
+		clientList.sort(col);
 	}
 }

@@ -142,6 +142,5 @@ public class ClientList extends BaseUtility implements Serializable{
 		/*
 		 * DO CODE
 		 */
-		}
 	}
 }

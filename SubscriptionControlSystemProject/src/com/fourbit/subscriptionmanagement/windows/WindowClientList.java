@@ -1,11 +1,12 @@
 package com.fourbit.subscriptionmanagement.windows;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import com.fourbit.subscriptionmanagement.baseutils.clientmanagement.Client;
 
@@ -32,21 +34,16 @@ public class WindowClientList extends Window{
 				return true;
 			};
 		};
-		
-		//SORTING LISTENER
-		
-		/*table.getTableHeader().addMouseListener(new MouseAdapter(){
+		table.getTableHeader().addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e) {
 				JTableHeader header = table.getTableHeader();
 				int selectedColumn = header.columnAtPoint(e.getPoint());
 				sort(selectedColumn);
 			}
-		});*/
+		});
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(1280, 720));
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		frame.setLayout(new FlowLayout());
 		frame.add(scrollPane);
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridBagLayout());
@@ -110,10 +107,6 @@ public class WindowClientList extends Window{
 				new WindowSettings();
 			}
 		});
-
-		/*
-		 * DEBUG - REMOVE ON FINAL COMPILE
-		 */
 		JButton debug = new JButton("DEBUG");
 		buttonPanel.add(debug, gbc);
 		debug.addActionListener(new ActionListener(){
@@ -134,6 +127,7 @@ public class WindowClientList extends Window{
 		});
 		buttonPanel.add(exitButton, gbc);
 		gbc.gridy++;
+		frame.add(buttonPanel);
 		frame.addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e)
@@ -141,7 +135,6 @@ public class WindowClientList extends Window{
 				close();
 			}
 		});
-		frame.add(buttonPanel);
 		frame.pack();
 		finalize();
 	}
@@ -172,22 +165,6 @@ public class WindowClientList extends Window{
 	}
 	
 	public void sort(int col){
-		/*logger.logInfo("Starting to sort raw data via column " + table.getColumnName(col));
-		Object[][] data = getData(clientList.getCompressedList());
-		if(data != null && data.length != 0){
-			for(int x = 0; x < data[0].length; x++){
-				for(int y = x; y < data[0].length; y++){
-					String cur = (String)data[x][col];
-					String tgt = (String)data[y][col];
-					if(cur.compareTo(tgt) == 1){
-						Object temp = data[x][col];
-						data[x][col] = data[y][col];
-						data[y][col] = temp;
-					}
-				}
-			}
-			table.setModel(new DefaultTableModel(data, columns));
-		}*/
 		clientList.sort(col);
 	}
 }

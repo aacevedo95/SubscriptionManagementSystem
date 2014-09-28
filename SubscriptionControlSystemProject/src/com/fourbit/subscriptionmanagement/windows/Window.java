@@ -34,8 +34,8 @@ public class Window extends BaseUtility{
 	}
 	
 	protected void finalize(){
-		frame.setVisible(true);
 		center();
+		frame.setVisible(true);
 	}
 	
 	protected void setIcon(Image i){

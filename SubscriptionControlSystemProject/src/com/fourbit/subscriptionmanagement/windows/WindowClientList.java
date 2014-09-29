@@ -1,6 +1,7 @@
 package com.fourbit.subscriptionmanagement.windows;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,13 +29,12 @@ public class WindowClientList extends Window{
 	public WindowClientList(){
 		super();
 		frame.setTitle("Client list");
-		table = new JTable(getData(clientList.getCompressedList()), columns){
+		table = new JTable(new DefaultTableModel(getData(clientList.getCompressedList()), columns){
 			@Override
 			public boolean isCellEditable(int row, int col) {
-				if(col == 0)return false;
-				return true;
+				return false;
 			};
-		};
+		});
 		table.getTableHeader().addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -44,7 +45,6 @@ public class WindowClientList extends Window{
 		});
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(1280, 720));
-		frame.add(scrollPane);
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridBagLayout());
 		JButton addButton = new JButton("Add");
@@ -127,6 +127,8 @@ public class WindowClientList extends Window{
 		});
 		buttonPanel.add(exitButton, gbc);
 		gbc.gridy++;
+		frame.setLayout(new FlowLayout());
+		frame.add(scrollPane);
 		frame.add(buttonPanel);
 		frame.addWindowListener(new WindowAdapter()
 		{
@@ -166,5 +168,6 @@ public class WindowClientList extends Window{
 	
 	public void sort(int col){
 		clientList.sort(col);
+		refresh();
 	}
 }

@@ -139,8 +139,15 @@ public class ClientList extends BaseUtility implements Serializable{
 	}
 	
 	public void sort(int col){
-		/*
-		 * DO CODE
-		 */
+		logger.logInfo("Sorting client list by columng " + col);
+		for(int x = 0; x < clients; x++){
+			for(int y = x; y < clients; y++){
+				if(list[x].compareTo(list[y], col) == -1){
+					Client tmp = list[x];
+					list[x] = list[y];
+					list[y] = tmp;
+				}
+			}
+		}
 	}
 }

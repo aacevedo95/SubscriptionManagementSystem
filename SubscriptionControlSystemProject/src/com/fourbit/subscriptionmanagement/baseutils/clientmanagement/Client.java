@@ -1,8 +1,8 @@
 package com.fourbit.subscriptionmanagement.baseutils.clientmanagement;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 @SuppressWarnings("serial")
 public class Client implements Serializable{
@@ -18,9 +18,6 @@ public class Client implements Serializable{
 	private long joinTime;
 	private double totalPayed;
 	private double totalDue;
-	/*
-	 * Add remaining variables with getters & setters
-	 */
 
 	public Client(){
 		joinTime = System.currentTimeMillis();
@@ -99,5 +96,17 @@ public class Client implements Serializable{
 
 	public void addDebt(){
 		totalDue += PRICE_PER_MONTH;
+	}
+	
+	public int compareTo(Client c, int col){
+		switch(col){
+		case 0: return getUserId().compareTo(c.getUserId());
+		case 1: return getFirstName().compareTo(c.getFirstName());
+		case 2: return getMiddleName().compareTo(c.getMiddleName());
+		case 3: return getLastName().compareTo(c.getLastName());
+		case 4: return getPhone().compareTo(c.getPhone());
+		case 5: return getEmail().compareTo(c.getEmail());
+		}
+		return -2;
 	}
 }

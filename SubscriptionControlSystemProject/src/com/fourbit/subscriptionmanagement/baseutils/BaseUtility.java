@@ -7,9 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import javax.swing.JOptionPane;
-
 import com.fourbit.subscriptionmanagement.Logger;
 import com.fourbit.subscriptionmanagement.SystemSettings;
 import com.fourbit.subscriptionmanagement.baseutils.clientmanagement.ClientList;
@@ -41,7 +39,6 @@ public class BaseUtility {
 		logger.logInfo("Setting up BaseUtil");
 		clientList = new ClientList();
 		statTracker = new StatisticsTracker();
-		verifyFiles();
 		loadData();
 		statTracker.modTotalRuns();
 		logger.logInfo("Done setting up BaseUtil, starting program");
@@ -74,19 +71,6 @@ public class BaseUtility {
 		logger.logInfo("Finished saving data");
 		logger.close();
 		System.exit(0);
-	}
-
-	public void verifyFiles(){
-		String[] files = new String("ClientList Statistics").split(" ");
-		for(String tmp : files){
-			File file = new File(tmp + EXTENSION);
-			if(!file.exists())
-				try {
-					file.createNewFile();
-				} catch (IOException e) {
-					logger.logSevere("Could not create file: " + file);
-				}
-		}
 	}
 	
 	public void save(Object obj, String fileName){

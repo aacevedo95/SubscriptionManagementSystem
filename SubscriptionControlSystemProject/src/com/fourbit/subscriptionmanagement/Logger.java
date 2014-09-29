@@ -14,7 +14,8 @@ public class Logger extends BaseUtility{
 	private PrintWriter printWriter;
 	
 	public Logger(){
-		log = new File(getDateAndTimeLogName() + ".log");
+		if(!new File("logs").exists())new File("logs").mkdir();
+		log = new File("logs/log " + getDateAndTimeLogName() + ".log");
 		try {
 			log.createNewFile();
 		} catch (IOException e) {

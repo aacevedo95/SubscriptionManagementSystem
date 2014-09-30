@@ -1,4 +1,5 @@
 package com.fourbit.subscriptionmanagement.baseutils;
+
 import java.io.Serializable;
 
 @SuppressWarnings("serial")

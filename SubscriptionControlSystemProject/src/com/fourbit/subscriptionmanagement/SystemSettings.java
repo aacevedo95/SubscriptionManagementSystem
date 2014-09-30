@@ -2,9 +2,11 @@ package com.fourbit.subscriptionmanagement;
 
 import java.io.Serializable;
 
+import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
+
 
 @SuppressWarnings("serial")
-public class SystemSettings implements Serializable{
+public class SystemSettings extends BaseUtility implements Serializable{
 	
 	private boolean showConsole;
 	
@@ -18,5 +20,6 @@ public class SystemSettings implements Serializable{
 	
 	public void setConsoleVisible(boolean visibility){
 		showConsole = visibility;
+		logger.setConsoleVisible(visibility);
 	}
 }

@@ -1,6 +1,6 @@
 package com.fourbit.subscriptionmanagement.baseutils.clientmanagement;
-import java.io.Serializable;
 
+import java.io.Serializable;
 import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
 
 

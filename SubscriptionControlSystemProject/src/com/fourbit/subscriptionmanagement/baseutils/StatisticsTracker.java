@@ -10,7 +10,6 @@ public class StatisticsTracker extends BaseUtility implements Serializable{
 	private double totalIncome;
 	
 	public StatisticsTracker(){
-		setFileName("statistics");
 		totalPeople = 0;
 		totalPayments = 0;
 		totalRuns = 0;

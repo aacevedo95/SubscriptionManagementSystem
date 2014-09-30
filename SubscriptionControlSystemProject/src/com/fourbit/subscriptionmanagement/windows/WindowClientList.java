@@ -48,7 +48,7 @@ public class WindowClientList extends Window{
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridBagLayout());
 		JButton addButton = new JButton("Add");
-		JButton removeButton = new JButton("Delete");
+		JButton deleteButton = new JButton("Delete");
 		JButton viewButton = new JButton("View/Edit");
 		JButton settingsButton = new JButton("Settings");
 		JButton creditsButton = new JButton("Credits");
@@ -67,20 +67,20 @@ public class WindowClientList extends Window{
 		});
 		buttonPanel.add(addButton, gbc);
 		gbc.gridy++;
-		removeButton.addActionListener(new ActionListener(){
+		deleteButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
 				String id = (String)table.getModel().getValueAt(row, 0);
-				Client temp = clientList.searchForClientById(id);
-				if(showConfirmDialog("Are you sure you would like to unregister and delete all data related to user " + id + ", also known as " + temp.getFirstName() + " " + temp.getLastName())){
-					clientList.deleteClientById(id);
+				int index = clientList.searchForClientIndexById(id);
+				if(showConfirmDialog("Are you sure you would like to unregister and delete all data related to user " + id + "?")){
+					clientList.deleteClientByIndex(index);
 					refresh();
 				}
 				setSelectedRow(row);
 			}
 		});
-		buttonPanel.add(removeButton, gbc);
+		buttonPanel.add(deleteButton, gbc);
 		gbc.gridy++;
 		viewButton.addActionListener(new ActionListener(){
 			@Override

@@ -31,8 +31,6 @@ public class BaseUtility {
 
 	private final String EXTENSION = ".cdp";
 
-	private String fileName;
-
 	public void setup(){
 		logger = new Logger();
 		settings = new SystemSettings();
@@ -106,14 +104,6 @@ public class BaseUtility {
 			logger.logError("Could not find class \'Client.class\'");
 		}
 		return null;
-	}
-
-	public String getFileName(){
-		return fileName;
-	}
-
-	public void setFileName(String name){
-		fileName = name;
 	}
 	
 	public boolean showConfirmDialog(String msg){

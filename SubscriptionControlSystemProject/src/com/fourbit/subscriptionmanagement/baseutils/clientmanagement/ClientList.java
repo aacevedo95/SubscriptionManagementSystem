@@ -13,7 +13,6 @@ public class ClientList extends BaseUtility implements Serializable{
 	private int sizeModifier;
 
 	public ClientList(){
-		setFileName("clientlist");
 		list = new Client[BASE_SIZE];
 		clients = 0;
 		sizeModifier = 0;
@@ -70,31 +69,22 @@ public class ClientList extends BaseUtility implements Serializable{
 	}
 
 	public int searchForClientIndex(String name){
-		/*
-		 * Write code for the event that a name appears multiple times
-		 */
+		logger.logInfo("Searching for user " + name);
 		for(int x = 0; x < list.length; x++){
 			if(list[x].getFirstName().equalsIgnoreCase(name)){
+				logger.logInfo("Found user " + name);
 				return x;
 			}
 		}
+		logger.logInfo("Could not find user " + name);
 		return -1;
 	}
 	
 	public int searchForClientIndexById(String id){
-		for(int x = 0; x < list.length; x++){
-			if(list[x].getUserId().equalsIgnoreCase(id)){
-				return x;
-			}
-		}
-		return -1;
-	}
-	
-	public int searchForClientIndex(int id){
 		logger.logInfo("Searching for user " + id);
 		for(int x = 0; x < list.length; x++){
 			if(list[x].getUserId().equals(id)){
-				logger.logInfo("Found user " + id + " with name " + list[x].getFirstName() + " " + list[x].getMiddleName() + " " + list[x].getLastName());
+				logger.logInfo("Found user " + id);
 				return x;
 			}
 		}
@@ -108,9 +98,6 @@ public class ClientList extends BaseUtility implements Serializable{
 
 	public void deleteClientByIndex(int index){
 		logger.logInfo("Deleting user " + list[index].getUserId());
-		/*
-		 * Write code for the event that a name appears multiple times
-		 */
 		if(index >= 0 && index <= list.length){
 			list[index] = null;
 			clients--;
@@ -139,7 +126,7 @@ public class ClientList extends BaseUtility implements Serializable{
 	}
 	
 	public void sort(int col){
-		logger.logInfo("Sorting client list by columng " + col);
+		logger.logInfo("Sorting client list by columnn " + col);
 		for(int x = 0; x < clients; x++){
 			for(int y = x; y < clients; y++){
 				if(list[x].compareTo(list[y], col) == -1){

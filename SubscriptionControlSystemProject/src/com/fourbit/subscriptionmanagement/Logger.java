@@ -74,7 +74,6 @@ public class Logger extends BaseUtility{
 		return dateFormat.format(date);
 	}
 	
-	@Override
 	public String getFileName(){
 		return log.getName();
 	}

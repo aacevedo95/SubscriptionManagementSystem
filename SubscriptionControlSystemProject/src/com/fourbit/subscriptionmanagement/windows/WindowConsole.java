@@ -1,5 +1,6 @@
 package com.fourbit.subscriptionmanagement.windows;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -13,6 +14,8 @@ public class WindowConsole extends Window {
 		frame.setTitle("Console log");
 		area = new JTextArea();
 		area.setEditable(false);
+		area.setBackground(Color.black);
+		area.setForeground(Color.white);
 		JScrollPane pane = new JScrollPane(area);
 		pane.setPreferredSize(new Dimension(500,300));
 		frame.add(pane);

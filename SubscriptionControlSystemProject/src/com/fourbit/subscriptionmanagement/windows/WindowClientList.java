@@ -6,17 +6,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 import com.fourbit.subscriptionmanagement.baseutils.clientmanagement.Client;
 
@@ -35,14 +31,16 @@ public class WindowClientList extends Window{
 				return false;
 			};
 		});
-		table.getTableHeader().addMouseListener(new MouseAdapter(){
+		
+		//Fix column sorting code
+		/*table.getTableHeader().addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e) {
 				JTableHeader header = table.getTableHeader();
 				int selectedColumn = header.columnAtPoint(e.getPoint());
 				sort(selectedColumn);
 			}
-		});
+		});*/
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(1280, 720));
 		JPanel buttonPanel = new JPanel();

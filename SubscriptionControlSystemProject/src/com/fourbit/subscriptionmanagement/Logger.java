@@ -38,7 +38,7 @@ public class Logger extends BaseUtility{
 		console = new WindowConsole();
 		PrintStream out = new PrintStream(new SystemTextAreaOutputStream(console.getArea()));
 		System.setOut(out);
-		System.setErr(out);
+		System.setErr(null);
 	}
 	
 	public void close(){

@@ -135,7 +135,6 @@ public class WindowRegisterUser extends Window{
 						temp.setPhone(phone);
 						temp.setEmail(email);
 						clientList.addClient(temp);
-						statTracker.modTotalPeopleRegistered();
 						frame.dispose();
 						windowClientList.refresh();
 					}

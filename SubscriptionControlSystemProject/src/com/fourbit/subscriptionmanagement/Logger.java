@@ -60,7 +60,7 @@ public class Logger extends BaseUtility{
 	private void writeToLog(String msg){
 		printWriter.println(getDateAndTime() + " " + msg);
 		if(settings.consoleIsVisible())
-			System.out.println(getDateAndTime() + " " + msg);
+			if(console!=null)System.out.println(getDateAndTime() + " " + msg);
 	}
 	
 	public String getDateAndTime(){

@@ -10,8 +10,9 @@ public class WindowConsole extends Window {
 
 	public WindowConsole() {
 		super();
-		frame.setTitle("Console");
+		frame.setTitle("Console log");
 		area = new JTextArea();
+		area.setEditable(false);
 		JScrollPane pane = new JScrollPane(area);
 		pane.setPreferredSize(new Dimension(500,300));
 		frame.add(pane);

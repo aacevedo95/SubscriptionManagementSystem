@@ -19,7 +19,6 @@ public class BaseUtility {
 	static protected Logger logger;
 	static protected ClientList clientList;
 	static protected SystemSettings settings;
-	static protected StatisticsTracker statTracker;
 	static protected WindowClientList windowClientList;
 	
 	static boolean confirmDialog(String msg){
@@ -34,12 +33,9 @@ public class BaseUtility {
 	public void setup(){
 		logger = new Logger();
 		settings = new SystemSettings();
-		logger.logInfo("Setting up BaseUtil");
 		clientList = new ClientList();
-		statTracker = new StatisticsTracker();
 		loadData();
-		statTracker.modTotalRuns();
-		logger.logInfo("Done setting up BaseUtil, starting program");
+		settings.refresh();
 		windowClientList = 	new WindowClientList();
 	}
 
@@ -48,11 +44,6 @@ public class BaseUtility {
 		if(clientList == null){
 			clientList = new ClientList();
 			logger.logInfo("No previous client list found, creating a new one");
-		}
-		statTracker = (StatisticsTracker)load("statistics");
-		if(statTracker == null){
-			statTracker = new StatisticsTracker();
-			logger.logInfo("No previous statistics data found, creating new file");
 		}
 		settings = (SystemSettings)load("settings");
 		if(settings == null){
@@ -63,7 +54,6 @@ public class BaseUtility {
 
 	public void close(){
 		logger.logInfo("Starting to close program");
-		save(statTracker, "statistics");
 		save(clientList, "clientlist");
 		save(settings, "settings");
 		logger.logInfo("Finished saving data");

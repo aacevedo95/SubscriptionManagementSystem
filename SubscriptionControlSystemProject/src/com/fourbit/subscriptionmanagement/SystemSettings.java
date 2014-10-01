@@ -1,7 +1,6 @@
 package com.fourbit.subscriptionmanagement;
 
 import java.io.Serializable;
-
 import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
 
 
@@ -21,5 +20,9 @@ public class SystemSettings extends BaseUtility implements Serializable{
 	public void setConsoleVisible(boolean visibility){
 		showConsole = visibility;
 		logger.setConsoleVisible(visibility);
+	}
+	
+	public void refresh(){
+		setConsoleVisible(showConsole);
 	}
 }

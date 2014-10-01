@@ -17,6 +17,7 @@ public class WindowSettings extends Window{
 		frame.setTitle("Settings");
 		JPanel settingsPanel = new JPanel();
 		checkboxConsole = new JCheckBox("Show console");
+		checkboxConsole.setSelected(settings.consoleIsVisible());
 		settingsPanel.add(checkboxConsole);
 		settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
 		frame.add(settingsPanel);

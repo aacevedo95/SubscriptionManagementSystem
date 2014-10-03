@@ -26,7 +26,6 @@ public class BaseUtility {
 		JOptionPane.showConfirmDialog(null, msg, "Confirm", opt);
 		if(opt == JOptionPane.YES_OPTION)return true;
 		return false;
-		//get help :D
 	}
 
 	private final String EXTENSION = ".cdp";

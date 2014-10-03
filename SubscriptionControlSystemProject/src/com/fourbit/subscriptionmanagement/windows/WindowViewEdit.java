@@ -33,7 +33,7 @@ public class WindowViewEdit extends Window{
 				final JLabel firstNameLabel = new JLabel("First name");
 				labelPanel.add(firstNameLabel);
 				labelPanel.add(Box.createVerticalStrut(4));
-				final JLabel middleNameLabel = new JLabel("Middle name");
+				final JLabel middleNameLabel = new JLabel("Middle name here");
 				labelPanel.add(middleNameLabel);
 				labelPanel.add(Box.createVerticalStrut(4));
 				final JLabel lastNameLabel = new JLabel("Last name");

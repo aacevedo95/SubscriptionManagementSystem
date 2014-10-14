@@ -119,7 +119,7 @@ public class WindowRegisterUser extends Window{
 				String phone = userPhoneField.getText();
 				String email = userEmailField.getText();
 				if(!firstName.equals("") && !lastName.equals("") && phone.length() >= 10){
-					if(showConfirmDialog("Are you sure this information is correct:\n" + 
+					if(confirmDialog("Are you sure this information is correct:\n" + 
 							"\nID: " + id +
 							"\nFirst name: " + firstName + 
 							"\nMiddle name: " + middleName +

@@ -90,7 +90,7 @@ public class WindowViewEdit extends Window{
 			saveButton.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(showConfirmDialog("Are you sure you would like to save this information? You will not be able to undo...")){
+					if(confirmDialog("Are you sure you would like to save this information? You will not be able to undo...")){
 						c.setFirstName(firstNameField.getText());
 						c.setMiddleName(middleNameField.getText());
 						c.setLastName(lastNameField.getText());

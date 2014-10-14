@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import com.fourbit.subscriptionmanagement.Logger;
 import com.fourbit.subscriptionmanagement.SystemSettings;
 import com.fourbit.subscriptionmanagement.baseutils.clientmanagement.ClientList;
@@ -21,7 +23,7 @@ public class BaseUtility {
 	static protected SystemSettings settings;
 	static protected WindowClientList windowClientList;
 	
-	static boolean confirmDialog(String msg){
+	public static boolean confirmDialog(String msg){
 		int opt = 0;
 		JOptionPane.showConfirmDialog(null, msg, "Confirm", opt);
 		if(opt == JOptionPane.YES_OPTION)return true;
@@ -34,6 +36,12 @@ public class BaseUtility {
 		logger = new Logger();
 		settings = new SystemSettings();
 		clientList = new ClientList();
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
 		loadData();
 		settings.refresh();
 		windowClientList = 	new WindowClientList();
@@ -94,11 +102,5 @@ public class BaseUtility {
 			logger.logError("Could not find class \'Client.class\'");
 		}
 		return null;
-	}
-	
-	public boolean showConfirmDialog(String msg){
-		int opt = JOptionPane.showConfirmDialog(null, msg);
-		if(opt == JOptionPane.YES_OPTION)return true;
-		return false;
 	}
 }

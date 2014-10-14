@@ -143,4 +143,24 @@ public class ClientList extends BaseUtility implements Serializable{
 		}
 		return tmp;
 	}
+	
+	public Client[] search(String q){
+		Client[] t = new Client[8];
+		int n = 0;
+		for(int x = 0; x < clients; x++){
+			if(list[x].isLike(q)){
+				if(n==t.length){
+					Client[] tmp = new Client[t.length*2];
+					for(int y = 0; y < n; y++)tmp[y]=t[y];
+					t = tmp;
+				}
+				t[n]=list[x];
+				n++;
+			}
+		}
+		if(n==0)return null;
+		Client[] temp = new Client[n];
+		for(int x = 0; x < n; x++)temp[x]=t[x];
+		return temp;
+	}
 }

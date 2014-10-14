@@ -57,33 +57,15 @@ public class ClientList extends BaseUtility implements Serializable{
 		}
 	}
 	
-	public Client searchForClient(String name){
-		int index = searchForClientIndex(name);
+	public Client searchForClient(String id){
+		int index = searchForClientIndex(id);
 		if(index == -1)return null;
 		else return list[index];
 	}
 	
-	public Client searchForClientById(String id){
-		int index = searchForClientIndexById(id);
-		if(index == -1)return null;
-		else return list[index];
-	}
-	
-	public int searchForClientIndex(String name){
-		logger.logInfo("Searching for user " + name);
-		for(int x = 0; x < list.length; x++){
-			if(list[x].getFirstName().equalsIgnoreCase(name)){
-				logger.logInfo("Found user " + name);
-				return x;
-			}
-		}
-		logger.logInfo("Could not find user " + name);
-		return -1;
-	}
-	
-	public int searchForClientIndexById(String id){
+	public int searchForClientIndex(String id){
 		logger.logInfo("Searching for user " + id);
-		for(int x = 0; x < list.length; x++){
+		for(int x = 0; x < clients; x++){
 			if(list[x].getUserId().equals(id)){
 				logger.logInfo("Found user " + id);
 				return x;
@@ -93,13 +75,10 @@ public class ClientList extends BaseUtility implements Serializable{
 		return -1;
 	}
 	
-	public void deleteClient(String name){
-		deleteClientByIndex(searchForClientIndex(name));
-	}
-	
 	public void deleteClientByIndex(int index){
+		if(index==-1)return;
 		logger.logInfo("Deleting user " + list[index].getUserId());
-		if(index >= 0 && index <= list.length){
+		if(index >= 0 && index <= clients){
 			list[index] = null;
 			clients--;
 			for(int y = index; y < list.length; y++){
@@ -109,7 +88,7 @@ public class ClientList extends BaseUtility implements Serializable{
 		}
 	}
 	
-	public void deleteClientById(String id){
+	public void deleteClient(String id){
 		deleteClientByIndex(searchForClientIndex(id));
 	}
 	

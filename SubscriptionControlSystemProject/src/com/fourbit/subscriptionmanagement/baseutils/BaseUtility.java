@@ -15,7 +15,6 @@ import com.fourbit.subscriptionmanagement.SystemSettings;
 import com.fourbit.subscriptionmanagement.baseutils.clientmanagement.ClientList;
 import com.fourbit.subscriptionmanagement.windows.WindowClientList;
 
-
 public class BaseUtility {
 
 	static protected Logger logger;
@@ -24,8 +23,7 @@ public class BaseUtility {
 	static protected WindowClientList windowClientList;
 	
 	public static boolean confirmDialog(String msg){
-		int opt = 0;
-		JOptionPane.showConfirmDialog(null, msg, "Confirm", opt);
+		int opt = JOptionPane.showConfirmDialog(null, msg, "Confirm", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		if(opt == JOptionPane.YES_OPTION)return true;
 		return false;
 	}

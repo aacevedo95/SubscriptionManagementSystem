@@ -31,7 +31,7 @@ public class WindowClientList extends Window{
 		 * DECLARATIONS AND INITIALISATION
 		 * 
 		 */
-		
+
 		table = new JTable(new DefaultTableModel(clientList.getData(), columns){
 			@Override
 			public boolean isCellEditable(int row, int col) {
@@ -56,7 +56,7 @@ public class WindowClientList extends Window{
 		 * LAYOUT
 		 * 
 		 */
-		
+
 		JPanel mainPanel = new JPanel();{
 			mainPanel.setLayout(new FlowLayout());
 			JPanel sidePanel = new JPanel();{
@@ -117,14 +117,30 @@ public class WindowClientList extends Window{
 		deleteButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int row = table.getSelectedRow();
-				String id = (String)table.getModel().getValueAt(row, 0);
-				int index = clientList.searchForClientIndexById(id);
-				if(confirmDialog("Are you sure you would like to unregister and delete all data related to user " + id + "?")){
-					clientList.deleteClientByIndex(index);
-					refresh();
+				int[] rows = table.getSelectedRows();
+				if(rows.length==1){
+					int row = rows[0];
+					String id = (String)table.getModel().getValueAt(row, 0);
+					int index = clientList.searchForClientIndex(id);
+					if(confirmDialog("Are you sure you would like to unregister and delete all data related to user " + id + "?")){
+						clientList.deleteClientByIndex(index);
+					}
+					setSelectedRow(row);
+				}else{
+					String ids = "";
+					for(int x = 0; x < rows.length && x < 6; x++)ids+=(String)table.getModel().getValueAt(x, 0)+" , ";
+					ids+="...";
+					if(confirmDialog("Are you sure you would like to unregister and delete all data related to the selected " + rows.length + " users?\n" + ids)){
+						for(int x = 0; x < rows.length; x++){
+							String id = (String)table.getModel().getValueAt(x, 0);
+							clientList.deleteClient(id);
+						}
+						setSelectedRow(rows[0]);
+					}else{
+						logger.logInfo("Mass unregister event cancelled");
+					}
 				}
-				setSelectedRow(row);
+				refresh();
 			}
 		});
 		viewButton.addActionListener(new ActionListener(){
@@ -133,7 +149,7 @@ public class WindowClientList extends Window{
 				int row = table.getSelectedRow();
 				if(row!=-1){
 					String id = (String)table.getModel().getValueAt(row, 0);
-					Client temp = clientList.searchForClientById(id);
+					Client temp = clientList.searchForClient(id);
 					new WindowViewEdit(temp);
 				}
 			}
@@ -185,7 +201,7 @@ public class WindowClientList extends Window{
 				close();
 			}
 		});
-		
+
 		/*
 		 * 
 		 * FINALIZATION

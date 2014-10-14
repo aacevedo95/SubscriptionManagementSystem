@@ -24,12 +24,12 @@ public class Logger extends BaseUtility{
 		try {
 			log.createNewFile();
 		} catch (IOException e) {
-			javax.swing.JOptionPane.showMessageDialog(null, "Contact administrator!\n" + e.getMessage() + "\n" + e.getLocalizedMessage());
+			javax.swing.JOptionPane.showMessageDialog(null, "Contact administrator!\n" + e.getMessage());
 		}
 		try {
 			printWriter = new PrintWriter(log);
 		} catch (IOException e) {
-			javax.swing.JOptionPane.showMessageDialog(null, "Contact administrator!\n" + e.getMessage() + "\n" + e.getLocalizedMessage() + e.getStackTrace());
+			javax.swing.JOptionPane.showMessageDialog(null, "Contact administrator!\n" + e.getMessage());
 		}
 		setupConsole();
 	}
@@ -38,7 +38,7 @@ public class Logger extends BaseUtility{
 		console = new WindowConsole();
 		PrintStream out = new PrintStream(new SystemTextAreaOutputStream(console.getArea()));
 		System.setOut(out);
-		System.setErr(null);
+		System.setErr(out);
 	}
 	
 	public void close(){

@@ -1,17 +1,18 @@
 package com.fourbit.subscriptionmanagement.baseutils.clientmanagement;
 
 import java.io.Serializable;
+
 import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
 
 
 @SuppressWarnings("serial")
 public class ClientList extends BaseUtility implements Serializable{
-
+	
 	private Client[] list;
 	private int clients;
 	private final int BASE_SIZE = 128;
 	private int sizeModifier;
-
+	
 	public ClientList(){
 		list = new Client[BASE_SIZE];
 		clients = 0;
@@ -31,7 +32,7 @@ public class ClientList extends BaseUtility implements Serializable{
 			list = temp;
 		}
 	}
-
+	
 	public void addClient(Client c){
 		verifyList();
 		logger.logInfo("Adding user " + c.getUserId() + " to ClientList");
@@ -47,7 +48,7 @@ public class ClientList extends BaseUtility implements Serializable{
 		}
 		if(!found)logger.logSevere("The list has no space, could not add user " + c.getUserId());
 	}
-
+	
 	public Client getClient(int x){
 		if(x < 0 || x > list.length){
 			return null;
@@ -55,19 +56,19 @@ public class ClientList extends BaseUtility implements Serializable{
 			return list[x];
 		}
 	}
-
+	
 	public Client searchForClient(String name){
 		int index = searchForClientIndex(name);
 		if(index == -1)return null;
 		else return list[index];
 	}
-
+	
 	public Client searchForClientById(String id){
 		int index = searchForClientIndexById(id);
 		if(index == -1)return null;
 		else return list[index];
 	}
-
+	
 	public int searchForClientIndex(String name){
 		logger.logInfo("Searching for user " + name);
 		for(int x = 0; x < list.length; x++){
@@ -95,7 +96,7 @@ public class ClientList extends BaseUtility implements Serializable{
 	public void deleteClient(String name){
 		deleteClientByIndex(searchForClientIndex(name));
 	}
-
+	
 	public void deleteClientByIndex(int index){
 		logger.logInfo("Deleting user " + list[index].getUserId());
 		if(index >= 0 && index <= list.length){
@@ -111,11 +112,11 @@ public class ClientList extends BaseUtility implements Serializable{
 	public void deleteClientById(String id){
 		deleteClientByIndex(searchForClientIndex(id));
 	}
-
+	
 	public int getNumberOfClients(){
 		return clients;
 	}
-
+	
 	public Client[] getCompressedList(){
 		logger.logInfo("Generating compressed user list with size " + clients);
 		Client[] temp = new Client[clients];
@@ -125,16 +126,21 @@ public class ClientList extends BaseUtility implements Serializable{
 		return temp;
 	}
 	
-	public void sort(int col){
-		logger.logInfo("Sorting client list by columnn " + col);
-		for(int x = 0; x < clients; x++){
-			for(int y = x; y < clients; y++){
-				if(list[x].compareTo(list[y], col) == -1){
-					Client tmp = list[x];
-					list[x] = list[y];
-					list[y] = tmp;
-				}
-			}
+	public Object[][] getData(){
+		return getData(getCompressedList());
+	}
+	
+	public Object[][] getData(Client[] l){
+		if(l == null || l.length == 0)return null;
+		Object[][] tmp = new Object[l.length][6];
+		for(int x = 0; x < l.length; x++){
+			tmp[x][0] = l[x].getUserId();
+			tmp[x][1] = l[x].getFirstName();
+			tmp[x][2] = l[x].getMiddleName();
+			tmp[x][3] = l[x].getLastName();
+			tmp[x][4] = l[x].getPhone();
+			tmp[x][5] = l[x].getEmail();
 		}
+		return tmp;
 	}
 }

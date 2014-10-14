@@ -1,0 +1,11 @@
+10/11/2014 20:02:13 [INFO] Starting to load clientlist.cdp
+10/11/2014 20:02:13 [ERROR] Unidentified IO error occurred while loading
+10/11/2014 20:02:13 [INFO] No previous client list found, creating a new one
+10/11/2014 20:02:13 [INFO] Starting to load settings.cdp
+10/11/2014 20:02:13 [INFO] Done loading settings.cdp
+10/11/2014 20:02:20 [INFO] Starting to close program
+10/11/2014 20:02:20 [INFO] Starting to save clientlist.cdp
+10/11/2014 20:02:20 [INFO] Done saving to clientlist.cdp
+10/11/2014 20:02:20 [INFO] Starting to save settings.cdp
+10/11/2014 20:02:20 [INFO] Done saving to settings.cdp
+10/11/2014 20:02:20 [INFO] Finished saving data

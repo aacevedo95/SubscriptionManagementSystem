@@ -1,10 +1,9 @@
 package com.fourbit.subscriptionmanagement.windows;
+
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import com.fourbit.subscriptionmanagement.baseutils.BaseUtility;
@@ -13,13 +12,13 @@ public class Window extends BaseUtility{
 
 	protected JFrame frame;
 	protected final int TEXT_FIELD_LENGTH = 20;
-	protected static Image icon;
+	protected ImageIcon icon;
 
 	public Window(){
-		//setIcon(loadIcon("databaseicon.png"));
 		frame = new JFrame();
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
+		icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("appicon.png"));
 	}
 
 	public JFrame getFrame(){
@@ -35,22 +34,7 @@ public class Window extends BaseUtility{
 	
 	protected void finalize(){
 		center();
+		if(icon != null)frame.setIconImage(icon.getImage());
 		frame.setVisible(true);
-	}
-	
-	protected void setIcon(Image i){
-		frame.setIconImage(i);
-	}
-	
-	protected Image loadIcon(String fileName){
-		File file = new File(fileName);
-		if(file.exists()){
-			try {
-				return ImageIO.read(file);
-			} catch (IOException e) {
-				logger.logError("Could not read from " + file.getName());
-			}
-		}else logger.logError("Tried to access " + file.getName() + " which doesn't exist");
-		return null;
 	}
 }

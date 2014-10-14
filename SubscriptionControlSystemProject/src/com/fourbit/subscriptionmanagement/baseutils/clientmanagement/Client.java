@@ -1,26 +1,22 @@
 package com.fourbit.subscriptionmanagement.baseutils.clientmanagement;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Client implements Serializable{
 
 	private final double PRICE_PER_MONTH = 15.0;
 
-	private String userId; //5 digit number
+	private String userId;
 	private String firstName;
 	private String middleName;
 	private String lastName;
 	private String phone;
 	private String email;
-	private long joinTime;
 	private double totalPayed;
 	private double totalDue;
 
 	public Client(){
-		joinTime = System.currentTimeMillis();
 		totalPayed = 0;
 		totalDue = PRICE_PER_MONTH;
 	}
@@ -73,14 +69,6 @@ public class Client implements Serializable{
 		email = e;
 	}
 
-	public String getDateJoined(){
-		return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(joinTime));
-	}
-
-	public long getDateJoinedMillis(){
-		return joinTime;
-	}
-
 	public double getTotalPayed(){
 		return totalPayed;
 	}
@@ -100,13 +88,23 @@ public class Client implements Serializable{
 	
 	public int compareTo(Client c, int col){
 		switch(col){
-		case 0: return getUserId().compareTo(c.getUserId());
-		case 1: return getFirstName().compareTo(c.getFirstName());
-		case 2: return getMiddleName().compareTo(c.getMiddleName());
-		case 3: return getLastName().compareTo(c.getLastName());
-		case 4: return getPhone().compareTo(c.getPhone());
-		case 5: return getEmail().compareTo(c.getEmail());
+			case 0: return getUserId().compareTo(c.getUserId());
+			case 1: return getFirstName().compareTo(c.getFirstName());
+			case 2: return getMiddleName().compareTo(c.getMiddleName());
+			case 3: return getLastName().compareTo(c.getLastName());
+			case 4: return getPhone().compareTo(c.getPhone());
+			case 5: return getEmail().compareTo(c.getEmail());
 		}
 		return -2;
+	}
+	
+	public boolean isLike(String txt){
+		if(userId.toLowerCase().contains(txt.toLowerCase()))return true;
+		if(firstName.toLowerCase().contains(txt.toLowerCase()))return true;
+		if(middleName.toLowerCase().contains(txt.toLowerCase()))return true;
+		if(lastName.toLowerCase().contains(txt.toLowerCase()))return true;
+		if(email.toLowerCase().contains(txt.toLowerCase()))return true;
+		if(phone.toLowerCase().contains(txt.toLowerCase()))return true;
+		return false;
 	}
 }

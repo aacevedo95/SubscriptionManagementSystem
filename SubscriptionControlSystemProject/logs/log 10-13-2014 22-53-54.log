@@ -1,0 +1,11 @@
+10/13/2014 22:53:55 [INFO] Starting to load clientlist.cdp
+10/13/2014 22:53:55 [ERROR] Could not find file clientlist.cdp
+10/13/2014 22:53:55 [INFO] No previous client list found, creating a new one
+10/13/2014 22:53:55 [INFO] Starting to load settings.cdp
+10/13/2014 22:53:55 [INFO] Done loading settings.cdp
+10/13/2014 22:53:57 [INFO] Starting to close program
+10/13/2014 22:53:57 [INFO] Starting to save clientlist.cdp
+10/13/2014 22:53:57 [INFO] Done saving to clientlist.cdp
+10/13/2014 22:53:57 [INFO] Starting to save settings.cdp
+10/13/2014 22:53:57 [INFO] Done saving to settings.cdp
+10/13/2014 22:53:57 [INFO] Finished saving data

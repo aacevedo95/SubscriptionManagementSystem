@@ -38,21 +38,19 @@ public class ClientGenerator extends BaseUtility{
 	}
 	
 	private String generateString(){
-		char[] letter = new String("abcdefghijklmnopqrstuvwxyz").toCharArray();
 		Random g = new Random();
 		String str = "";
 		int length = g.nextInt(8)+4;
 		for(int x = 0; x < length; x++){
-			str += letter[g.nextInt(letter.length-1)];
+			char r = (char)(g.nextInt(26) + 'a');
+			str += r;
 		}
 		return str;
 	}
 	
 	private String generatePhone(){
 		Random g = new Random();
-		int ln = g.nextInt(1)+10;
 		String str = "";
-		if(ln == 11)str+=1;
 		for(int x = 0; x < 10; x++){
 			str += g.nextInt(9);
 		}
